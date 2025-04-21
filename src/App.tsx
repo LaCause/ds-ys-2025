@@ -1,38 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import { Button } from "./ui/Button/Button";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <div className='bg-amber-500'>
-          dcsopCDSOKICS,LKN
+      <button className="p-[3px] relative">
+        <div className="absolute inset-0.5 bg-gradient-to-r from-primary via-secondary to-accent rounded-lg" />
+        <div className="px-8 py-2 bg-white rounded-[6px] relative group transition duration-200 text-white hover:bg-white/80">
+          <span className="bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text font-semibold text-transparent tracking-wide">
+            Souscrire
+          </span>
         </div>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      </button>
+      <br />
+      <br />
+      <Button>Button Default</Button>
+      <hr />
+      <br />
+      <Button size={"s"}>Filled : size S</Button>
+      <br />
+      <Button size={"m"}>Filled : size S</Button>
+      <br />
+      <Button size={"l"}>Filled : size S</Button>
+      <br />
+      <hr />
+      <br />
+      <Button variant={"outline"} size={"s"}>
+        Outline : s
+      </Button>
+      <br />
+      <Button variant={"outline"} size={"m"}>
+        Outline : m
+      </Button>
+      <br />
+      <Button variant={"outline"} size={"l"}>
+        Outline : l
+      </Button>
+      <br />
+      <hr />
+      <br />
+      {/* <Button variant={"animatedGradient"}>Animated</Button> */}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

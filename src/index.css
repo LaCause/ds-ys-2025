@@ -1,70 +1,132 @@
 @import "tailwindcss";
 
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@theme {
+  --color-background: oklch(0.98 0.01 280);         /* blanc */
+  --color-on-background: oklch(0.18 0.02 260);      /* texte sombre */
+  --color-surface: oklch(0.965 0.008 280);          /* surface claire */
+  --color-on-surface: oklch(0.18 0.02 260);
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* Primary — violet électrique */
+  --color-primary: oklch(0.72 0.32 262);            /* chroma ++ */
+  --color-on-primary: oklch(1 0 0);
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  --color-primary-container: oklch(0.94 0.15 262);
+  --color-on-primary-container: oklch(0.2 0.05 262);
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+  --color-gradient-primary: linear-gradient(217deg, var(--color-primary), rgba(255, 0, 0, 0) 70.71%),
+  linear-gradient(127deg, var(--color-secondary), rgba(247, 247, 247, 0) 70.71%),
+  linear-gradient(336deg, var(--color-accent), rgb(255, 255, 255) 100.71%);
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
+  /* Accent — rose néon */
+  --color-accent: oklch(0.75 0.35 340);
+  --color-on-accent: oklch(0.98 0.01 270);
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+  --color-accent-container: oklch(0.95 0.20 340);
+  --color-on-accent-container: oklch(0.25 0.03 340);
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+  /* Secondary — turquoise acide */
+  --color-secondary: oklch(0.7 0.28 195);
+  --color-on-secondary: oklch(1 0 0);
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+  --color-secondary-container: oklch(0.92 0.15 195);
+  --color-on-secondary-container: oklch(0.2 0.05 195);
+
+  /* Tertiary — jaune citron */
+  --color-tertiary: oklch(0.85 0.32 100);
+  --color-on-tertiary: oklch(0.1 0.01 100);
+
+  --color-tertiary-container: oklch(0.96 0.22 100);
+  --color-on-tertiary-container: oklch(0.25 0.03 100);
+
+  /* Success — vert éclatant */
+  --color-success: oklch(0.7 0.25 145);
+  --color-on-success: oklch(1 0 0);
+
+  /* Warning — orange vif */
+  --color-warning: oklch(0.8 0.3 70);
+  --color-on-warning: oklch(0.1 0.01 70);
+
+  /* Error — rouge saturé */
+  --color-error: oklch(0.65 0.33 25);
+  --color-on-error: oklch(1 0 0);
+
+  /* UI */
+  --color-outline: oklch(0.9 0.05 250);
+  --color-input: oklch(0.97 0.02 260);
+  --color-ring: oklch(0.72 0.25 262);
+
+
+  --animate-button-before: buttonAnimationBefore 3s linear 1s infinite;
+  --animate-button-after: buttonAnimationAfter 3s linear 1s infinite;
+  
+
+  @keyframes buttonAnimationBefore {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
   }
-  a:hover {
-    color: #747bff;
+
+  @keyframes buttonAnimationAfter {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(50%);
+    }
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+@layer components {
+  .gradient-color-primary {
+    background: var(--color-gradient-primary);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .gradient-color-primary:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.6);
+    outline-offset: 4px;
+  }
+  
+  .gradient-color-primary:active {
+    transform: scale(0.98);
+  }
+  
+  .gradient-color-primary:disabled,
+  .gradient-color-primary[aria-disabled="true"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    filter: grayscale(0.3);
+    pointer-events: none;
+  }
+  
+  .gradient-color-primary::before {
+    content: "";
+    position: absolute;
+    background-color: white;
+    opacity: 0;
+    width: 120%;
+    height: 100%;
+    transform: translateX(-100%) rotate(15deg);
+    transition: transform 250ms ease-in-out, opacity 250ms ease-in-out;
+    pointer-events: none;
+    filter: blur(1px);
+    mix-blend-mode: overlay;
+    z-index: 1;
+  }
+  
+  .gradient-color-primary:hover::before {
+    opacity: 0.4;
+    transform: translateX(0);
+  }
+  
+  .gradient-color-primary > * {
+    position: relative;
+    z-index: 2;
   }
 }
